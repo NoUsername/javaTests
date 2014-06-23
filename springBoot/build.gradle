@@ -1,0 +1,59 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.0.BUILD-SNAPSHOT")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+//apply plugin: 'maven-publish'
+apply plugin: 'idea'
+
+ext.name= 'BootTest'
+ext.version= '0.0.1'
+
+jar {
+    baseName = 'bootTest'
+    version =  '0.0.1'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+dependencies {
+    // common deps:
+    compile("org.apache.commons:commons-lang3:3.3.2")
+    compile("com.google.guava:guava:17.0")
+
+    compile("org.springframework.boot:spring-boot-starter")
+
+    // provide "production" features (metrics, health info, ...)
+    //compile("org.springframework.boot:spring-boot-starter-actuator")
+    // required by actuator:
+    //compile("org.springframework.boot:spring-boot-starter-security")
+
+    //testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+task all << {
+    println("done")
+}
+all.dependsOn {
+    tasks.findAll { task -> [ 'build', 'idea' ].contains(task.name) }
+}
+
+test { 
+  include "**/*Test.class" 
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
