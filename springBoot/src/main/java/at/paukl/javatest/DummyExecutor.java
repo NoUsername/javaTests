@@ -1,16 +1,12 @@
 package at.paukl.javatest;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -23,7 +19,7 @@ public class DummyExecutor implements ApplicationListener<ApplicationEvent> {
 	AtomicBoolean wasStarted = new AtomicBoolean(false);
 
 	@Autowired
-	void setConfig(Config config) {
+	public void setConfig(Config config) {
 		this.config = config;
 	}
 
