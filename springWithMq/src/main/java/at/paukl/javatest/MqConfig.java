@@ -31,15 +31,6 @@ public class MqConfig extends SingleRouteCamelConfiguration {
         // register other listeners....
     }
 
-
-    public static class SomeBean {
-
-        public void someMethod(String body) {
-            System.out.println("Received: " + body);
-        }
-
-    }
-
     @Bean
     @Override
     public RouteBuilder route() {
