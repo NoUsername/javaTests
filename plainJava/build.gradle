@@ -20,8 +20,11 @@ repositories {
 }
 
 dependencies {
-    //compile 'org.codehaus.groovy:groovy-all:2.2.0'
+    // common deps:
+    compile("org.apache.commons:commons-lang3:3.3.2")
     compile("com.google.guava:guava:17.0")
+
+    //compile 'org.codehaus.groovy:groovy-all:2.2.0'
 
     // mq stuff
     /*
@@ -32,6 +35,14 @@ dependencies {
     compile("org.apache.camel:camel-mqtt:" + camelVersion)
     */
 }
+
+task all << {
+    println("done")
+}
+all.dependsOn {
+    tasks.findAll { task -> ['build', 'idea', 'installApp'].contains(task.name) }
+}
+
 
 test { 
   include "**/*Test.class" 
