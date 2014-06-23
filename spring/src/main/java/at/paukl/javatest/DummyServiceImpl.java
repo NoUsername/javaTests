@@ -1,8 +1,11 @@
 package at.paukl.javatest;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @author Paul Klingelhuber
  */
+@Service
 public class DummyServiceImpl implements DummyService {
 
 	@Override

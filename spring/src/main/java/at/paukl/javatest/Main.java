@@ -1,36 +1,21 @@
 package at.paukl.javatest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+@ComponentScan("at.paukl.javatest")
 @Configuration
 public class Main {
 
 	public static void main(String[] args) {
 		System.out.println("starting spring test...");
 		ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
+		// or without componentscan:
+		//ApplicationContext context = new AnnotationConfigApplicationContext(at.paukl.alternateBeanConfig.SpringConfiguration.class);
 		DummyExecutor executor = (DummyExecutor)context.getBean("dummyExecutor");
 		executor.run();
-	}
-
-	@Bean
-	DummyExecutor dummyExecutor(Config config) {
-		DummyExecutor executor = new DummyExecutor();
-		executor.setConfig(config);
-		return executor;
-	}
-
-	@Bean Config config(DummyService dummyService) {
-		Config config = new Config();
-		config.service = dummyService;
-		return config;
-	}
-
-	@Bean DummyService dummyService() {
-		return new DummyServiceImpl();
 	}
 
 }
