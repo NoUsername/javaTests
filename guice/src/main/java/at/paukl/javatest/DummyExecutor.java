@@ -1,12 +1,14 @@
 package at.paukl.javatest;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Paul Klingelhuber
  */
+@Singleton
 public class DummyExecutor {
 
 	Config config;
