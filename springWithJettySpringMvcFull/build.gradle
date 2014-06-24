@@ -1,0 +1,68 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'java'
+//apply plugin: 'maven-publish'
+apply plugin: 'idea'
+apply plugin:'application'
+
+ext.name= 'JavaTest'
+ext.version= '0.0.1'
+
+// dependency versions
+def springVersion = '4.0.5.RELEASE'
+def jettyVersion = "9.2.1.v20140609"
+def metricsVersion = "3.0.1"
+def slf4jVersion = "1.7.7"
+
+mainClassName = "at.paukl.javatest.Main"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    // common deps:
+    compile("org.apache.commons:commons-lang3:3.3.2")
+    compile("com.google.guava:guava:17.0")
+
+    // spring
+    compile("org.springframework:spring-context:${springVersion}")
+    compile("org.springframework:spring-webmvc:${springVersion}")
+
+    // logging
+    compile("org.slf4j:slf4j-api:${slf4jVersion}")
+    compile("org.slf4j:slf4j-simple:${slf4jVersion}")
+
+    // jetty
+    compile("org.eclipse.jetty:jetty-server:${jettyVersion}")
+    compile("org.eclipse.jetty:jetty-servlet:${jettyVersion}")
+
+    // http client
+    compile("org.apache.httpcomponents:httpclient:4.3.4")
+
+    // metrics
+    compile("com.codahale.metrics:metrics-core:${metricsVersion}")
+
+    //compile 'org.codehaus.groovy:groovy-all:2.2.0'
+}
+
+task all << {
+    println("done")
+}
+all.dependsOn {
+    tasks.findAll { task -> ['build', 'idea', 'installApp'].contains(task.name) }
+}
+
+
+test { 
+  include "**/*Test.class" 
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
