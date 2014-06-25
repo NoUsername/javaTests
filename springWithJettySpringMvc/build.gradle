@@ -31,8 +31,6 @@ dependencies {
     compile("org.eclipse.jetty:jetty-server:9.2.1.v20140609")
     compile('org.eclipse.jetty:jetty-servlet:9.2.1.v20140609')
 
-    //compile("org.springframework:spring-beans:${springVersion}")
-
     //compile 'org.codehaus.groovy:groovy-all:2.2.0'
 }
 

@@ -13,15 +13,18 @@ public class Main {
 		System.out.println("starting jetty with spring webmvc test ...");
 
 		AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
-		webApplicationContext.setConfigLocation("at.paukl.javatest.web");
+		webApplicationContext.setConfigLocation("at.paukl.javatest");
 		webApplicationContext.refresh();
 
-		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext("at.paukl.javatest.nonWeb");
-		webApplicationContext.setParent(context);
+		//ConfigurableApplicationContext context = new AnnotationConfigApplicationContext("at.paukl.javatest.nonWeb");
+		//webApplicationContext.setParent(context);
 
 		// if context.start is called also, the "contextStarted" events occur twice!
 		//context.start();
 		webApplicationContext.start();
+
+        System.out.println("try navigating to:");
+        System.out.println("http://localhost:8080/money/deposit/5");
 	}
 
 }

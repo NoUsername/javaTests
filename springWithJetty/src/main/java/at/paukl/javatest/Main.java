@@ -13,6 +13,8 @@ public class Main {
 		System.out.println("starting spring with mq test ...");
 		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
 		context.start();
+        System.out.println("try accessing:");
+        System.out.println("http://localhost:8080/success/");
 	}
 
 }

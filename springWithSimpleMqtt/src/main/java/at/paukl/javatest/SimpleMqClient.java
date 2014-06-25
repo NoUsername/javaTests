@@ -10,6 +10,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,7 +26,13 @@ public class SimpleMqClient implements ApplicationListener<ApplicationEvent>, Mq
 	MqttClient mqttClient;
 	ExecutorService reconnectWorker = Executors.newSingleThreadExecutor();
 	ApplicationContext applicationContext;
-	List<String> subscriptions = Lists.newArrayList();
+	List<String> subscriptions;
+
+    @PostConstruct
+    void init() {
+        List<String> list = Lists.newArrayList();
+        subscriptions = Collections.synchronizedList(list);
+    }
 
 	void connect() {
 		String broker = "tcp://localhost:1883";
@@ -43,7 +52,7 @@ public class SimpleMqClient implements ApplicationListener<ApplicationEvent>, Mq
 			throw new RuntimeException("could not connect to mqtt msgbus", e);
 		}
 		mqttClient.setCallback(this);
-		for (String subscription : subscriptions) {
+		for (String subscription : Lists.newArrayList(subscriptions)) {
 			registerInternal(subscription);
 		}
 	}
@@ -74,10 +83,14 @@ public class SimpleMqClient implements ApplicationListener<ApplicationEvent>, Mq
 		if (mqttClient != null && mqttClient.isConnected()) {
 			try {
 				mqttClient.subscribe(topic);
+                subscriptions.remove(topic);
+                System.out.println("subscribed for topic " + topic);
 			} catch (MqttException e) {
 				throw new RuntimeException("", e);
 			}
-		}
+		} else {
+            System.out.println("will subscribe to " + topic + " on connect");
+        }
 	}
 
 	@Override
