@@ -27,8 +27,6 @@ dependencies {
 
     compile("org.springframework:spring-context:${springVersion}")
 
-    //compile("org.springframework:spring-beans:${springVersion}")
-
     //compile 'org.codehaus.groovy:groovy-all:2.2.0'
 
     // mq stuff

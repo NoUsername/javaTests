@@ -13,6 +13,8 @@ public class Main {
 		System.out.println("starting spring with mq test ...");
 		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
 		context.start();
+        System.out.println("Started, to see output, publish messages to the topic '/foo' on your local mqtt mq, e.g.:");
+        System.out.println("mosquitto_pub -t \"/foo\" -m \"hello there\"");
 	}
 
 }

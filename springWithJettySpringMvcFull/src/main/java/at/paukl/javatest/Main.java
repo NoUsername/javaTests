@@ -25,6 +25,12 @@ public class Main {
 		// if context.start is called also, the "contextStarted" events occur twice!
 		//context.start();
 		webApplicationContext.start();
+
+        final String baseUrl = "http://localhost:8080";
+        log.info("urls to try:");
+        log.info(baseUrl + "/money/deposit/5");
+        log.info(baseUrl + "/money/stock/GOOGL");
+        log.info(baseUrl + "/metrics");
 	}
 
 }
