@@ -11,7 +11,8 @@ apply plugin:'application'
 
 ext.name= 'JavaTest'
 ext.version= '0.0.1'
-def springVersion = '4.0.5.RELEASE'
+def springVersion = '4.1.0.RELEASE'
+def slf4jVersion = '1.7.7'
 
 mainClassName = "at.paukl.javatest.Main"
 
@@ -24,21 +25,14 @@ dependencies {
     // common deps:
     compile("org.apache.commons:commons-lang3:3.3.2")
     compile("com.google.guava:guava:17.0")
+    compile("org.slf4j:slf4j-api:${slf4jVersion}")
+    compile("org.slf4j:jcl-over-slf4j:${slf4jVersion}")
 
-    compile("org.springframework:spring-context:${springVersion}")
+    compile("org.springframework:spring-context:${springVersion}") {
+        exclude group: "commons-logging"
+    }
 
     //compile("org.springframework:spring-beans:${springVersion}")
-
-    //compile 'org.codehaus.groovy:groovy-all:2.2.0'
-
-    // mq stuff
-    /*
-    def camelVersion = "2.13.1"
-    compile("org.apache.camel:camel-core:" + camelVersion)
-    compile("org.apache.camel:camel-spring:" + camelVersion)
-    compile("org.apache.camel:camel-spring-javaconfig:" + camelVersion)
-    compile("org.apache.camel:camel-mqtt:" + camelVersion)
-    */
 }
 
 task all << {
